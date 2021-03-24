@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
     end
     
     def configure_permitted_parameters
+      puts "\n\n\n\n\n\n\nHELLO WORLD \n\n\n\n\n\n"
       devise_parameter_sanitizer.permit(:sign_up, keys: [:nickname, :avatar])
       devise_parameter_sanitizer.permit(:account_update, keys: [:nickname, :avatar])
     end
