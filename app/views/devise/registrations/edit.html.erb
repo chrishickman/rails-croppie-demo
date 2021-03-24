@@ -2,7 +2,7 @@
   <div class="col-4">
     <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, multipart: true }) do |f| %>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put}) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
       <div class="field">
@@ -10,15 +10,27 @@
         <%= f.text_field :nickname %>
       </div>
 
-      <div class="field">
-        <%= f.label "Avatar" %>
-        <%= file_field_tag :attachment %>
-        <%= f.hidden_field :avatar, id: "user_avatar_data", name: "user[avatar][data]"  %>
-      </div>
+      
 
-      
-      <div id="avatar-crop" ></div>
-      
+      <div class="field" 
+       data-controller='instant-upload cropper' 
+       data-cropper-model-value='user'>
+    <%= f.label :avatar %>
+    <%= f.file_field :avatar, 'data-instant-upload-target': 'input',
+          'data-action': 'instant-upload#changed' %>
+    <p>
+      <%= image_tag resource.cropped(300,300),
+            width: 300,
+            'data-instant-upload-target': 'image',
+            'data-cropper-target': 'image',
+            'data-action': 'instant-uploaded->cropper#changed' if resource.avatar.attached? %>
+
+      <%= content_tag :img, nil, src: nil, width: 300, height: 300,
+            'data-instant-upload-target': 'image',
+            'data-cropper-target': 'image',
+            'data-action': 'instant-uploaded->cropper#changed' unless resource.avatar.attached? %>
+    </p>
+  </div>
 
       <div class="field">
         <%= f.label :email %><br />

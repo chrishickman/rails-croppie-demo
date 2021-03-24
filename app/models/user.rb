@@ -23,6 +23,11 @@ class User < ApplicationRecord
       errors.add(:avatar, "must be a JPEGG or PNG File")
     end
 
-  end 
+  end
+
+  def cropped(w,h)
+    return avatar.variant(crop: "#{crop_width}x#{crop_height}+#{crop_x}+#{crop_y}")
+  end
+  
   
 end

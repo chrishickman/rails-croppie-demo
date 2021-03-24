@@ -18,7 +18,6 @@ window.$ = window.jQuery = jQuery;
 
 require("bootstrap/dist/js/bootstrap")
 require("custom/croppie")
-require("custom/livecrop")
 
 
 
@@ -28,3 +27,5 @@ require("custom/livecrop")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+import "controllers"
